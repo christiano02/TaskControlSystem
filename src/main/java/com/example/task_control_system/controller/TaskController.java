@@ -17,6 +17,6 @@ public class TaskController {
     @PostMapping("/user/{userId}")
     public ResponseEntity<Task> createTask(@PathVariable Long userId, @RequestBody TaskDTO dto) {
         Task task = taskService.createTask(userId, dto);
-        return ResponseEntity.ok(new Task());
+        return ResponseEntity.ok(task);
     }
 }

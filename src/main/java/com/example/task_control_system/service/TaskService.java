@@ -9,6 +9,8 @@ import com.example.task_control_system.role.EnumStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class TaskService {
 
@@ -26,6 +28,7 @@ public class TaskService {
         task.setDescription(dto.getDescription());
         task.setStatus(EnumStatus.PENDING);
         task.setUser(existingUser);
+        task.setCreationDate(LocalDateTime.now());
 
         return taskRepository.save(task);
     }

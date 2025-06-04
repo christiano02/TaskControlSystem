@@ -8,6 +8,7 @@ import java.util.Objects;
 @Entity
 @Table (name="tb_user")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +25,17 @@ public class User {
     @Column(name = "role")
     private EnumRole profile;
 
+    public User() {
+    }
+
+    public User(Long id, String email, String name, String password, EnumRole profile) {
+        this.email = email;
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.profile = profile;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -33,6 +45,46 @@ public class User {
                 ", password='" + password + '\'' +
                 ", profile=" + profile +
                 '}';
+    }
+    //getters and setters
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public EnumRole getProfile() {
+        return profile;
+    }
+
+    public void setProfile(EnumRole profile) {
+        this.profile = profile;
     }
 
     @Override

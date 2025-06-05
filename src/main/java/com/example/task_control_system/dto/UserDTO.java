@@ -12,6 +12,7 @@ public class UserDTO {
     private Long id;
     private String name;
     private String email;
+    private String userName;
     private String password;
     private EnumRole profile;
 
@@ -25,13 +26,6 @@ public class UserDTO {
     }
 
     //GETETERS AND SETTERS
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public Long getId() {
         return id;
@@ -49,6 +43,22 @@ public class UserDTO {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -64,7 +74,6 @@ public class UserDTO {
     public void setProfile(EnumRole profile) {
         this.profile = profile;
     }
-
     //toString
 
     @Override

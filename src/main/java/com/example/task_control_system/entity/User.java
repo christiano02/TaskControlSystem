@@ -19,6 +19,9 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @Column(name = "userName")
+    private String userName;
+
     @Column(name = "password")
     private String password;
 
@@ -28,10 +31,11 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String email, String name, String password, EnumRole profile) {
-        this.email = email;
+    public User(Long id, String email, String name,String userName, String password, EnumRole profile) {
         this.id = id;
         this.name = name;
+        this.email = email;
+        this.userName = userName;
         this.password = password;
         this.profile = profile;
     }
@@ -39,22 +43,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
-                ", id=" + id +
+                "id=" + id +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", profile=" + profile +
                 '}';
     }
+
     //getters and setters
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Long getId() {
         return id;
     }
@@ -69,6 +63,22 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

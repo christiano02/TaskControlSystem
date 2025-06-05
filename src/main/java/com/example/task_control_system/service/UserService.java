@@ -17,23 +17,26 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserDTO findById(Long id){
-            User userExisting = userRepository.findById(id)
+
+            User user = userRepository.findById(id)
                     .orElseThrow(() -> new RuntimeException("User not found"));
-            return new UserDTO(userExisting);
+            return new UserDTO(user);
     }
+
     public User createUser(UserDTO dto){
 
-        User existing = userRepository.findByUserName(dto.getName());
-        if(Objects.nonNull(existing)){
+        User userExisting = userRepository.findByUserName(dto.getUserName());
+        if(Objects.nonNull(userExisting)){
             throw new RuntimeException("Existing User");
         }
         User user = new User();
         user.setId(dto.getId());
         user.setName(dto .getName());
         user.setEmail(dto.getEmail());
+        user.setUserName(dto.getUserName());
         user.setPassword(dto.getPassword());
         user.setProfile(dto.getProfile());
 
-        return new User(user.getId(), user.getName(), user.getEmail(),user.getPassword(), user.getProfile());
+        return new User(user.getId(), user.getName(), user.getEmail(), user.getUserName(), user.getPassword(), user.getProfile());
     }
 }

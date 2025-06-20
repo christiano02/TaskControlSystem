@@ -11,7 +11,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value="/task")
+@RequestMapping(name="/task")
 public class TaskController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class TaskController {
         Task task = taskService.createTask(userId, dto);
         return ResponseEntity.ok(task);
     }
-    @GetMapping("/listTasks")
+    @GetMapping("/task/listTasks")
     public List<TaskDTO> taskDTOList(){
         return taskService.listTask();
     }

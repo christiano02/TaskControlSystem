@@ -39,7 +39,7 @@ public class UserService {
         user.setName(dto .getName());
         user.setEmail(dto.getEmail());
         user.setUserName(dto.getUserName());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setPassword(dto.getPassword());
         user.setProfile(dto.getProfile());
 
         return new User(user.getId(), user.getName(), user.getEmail(), user.getUserName(), user.getPassword(), user.getProfile());
@@ -56,7 +56,7 @@ public class UserService {
             userUpdate.setName(dto.getName());
             userUpdate.setEmail(dto.getEmail());
             userUpdate.setUserName(dto.getUserName());
-            userUpdate.setPassword(passwordEncoder.encode(dto.getPassword()));
+            userUpdate.setPassword(dto.getPassword());
             userUpdate.setProfile(dto.getProfile());
 
             return userRepository.save(userUpdate);

@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+
 @RestController
-@RequestMapping(name="/task")
+@RequestMapping(value="/task")
 public class TaskController {
 
     @Autowired
@@ -18,5 +21,9 @@ public class TaskController {
     public ResponseEntity<Task> createTask(@PathVariable Long userId, @RequestBody TaskDTO dto) {
         Task task = taskService.createTask(userId, dto);
         return ResponseEntity.ok(task);
+    }
+    @GetMapping("/listTasks")
+    public List<TaskDTO> taskDTOList(){
+        return taskService.listTask();
     }
 }

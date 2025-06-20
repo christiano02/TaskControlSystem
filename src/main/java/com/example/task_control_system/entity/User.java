@@ -30,6 +30,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private EnumRole profile;
 
@@ -117,7 +118,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return this.userName;
     }
 
     @Override

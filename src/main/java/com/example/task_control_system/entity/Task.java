@@ -24,6 +24,7 @@ public class Task {
     private LocalDateTime creationDate;
 
     @Column(name="status")
+    @Enumerated(EnumType.STRING)
     private EnumStatus status;
 
     @ManyToOne

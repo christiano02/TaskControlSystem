@@ -1,9 +1,7 @@
 package com.example.task_control_system.dto;
-
 import com.example.task_control_system.entity.User;
 import com.example.task_control_system.role.EnumRole;
 import org.springframework.beans.BeanUtils;
-
 import java.util.Objects;
 
 public class UserDTO {

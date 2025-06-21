@@ -11,18 +11,19 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(name="/task")
+@RequestMapping(path="/task")
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
 
-    @PostMapping("/user/{userId}")
+    @PostMapping("/create")
     public ResponseEntity<Task> createTask(@PathVariable Long userId, @RequestBody TaskDTO dto) {
         Task task = taskService.createTask(userId, dto);
         return ResponseEntity.ok(task);
     }
-    @GetMapping("/task/listTasks")
+
+    @GetMapping("/list")
     public List<TaskDTO> taskDTOList(){
         return taskService.listTask();
     }

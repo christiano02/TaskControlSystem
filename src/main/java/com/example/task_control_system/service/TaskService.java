@@ -20,7 +20,7 @@ public class TaskService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Transactional(readOnly = true)
     public Task createTask(Long userId, TaskDTO dto){
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -38,5 +38,14 @@ public class TaskService {
     public List<TaskDTO> listTask(){
        List<Task> result = taskRepository.findAll();
         return result.stream().map(TaskDTO::new).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public void deleteTask(Long id){
+        if(!taskRepository.existsById(id)){
+            throw new RuntimeException("Task not found");
+        }else{
+            taskRepository.deleteById(id);
+        }
     }
 }

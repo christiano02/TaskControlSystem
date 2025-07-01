@@ -23,7 +23,7 @@ public class UserService {
                     .orElseThrow(() -> new RuntimeException("User not found"));
             return new UserDTO(user);
     }
-
+    @Transactional(readOnly = true)
     public User createUser(UserDTO dto){
 
         User userExisting = userRepository.findByUserName(dto.getUserName());
@@ -45,7 +45,7 @@ public class UserService {
         return new User(user.getId(), user.getName(), user.getEmail(), user.getUserName(), user.getPassword(), user.getProfile());
         
     }
-
+    @Transactional(readOnly = true)
     public User updateUser(Long id, UserDTO dto){
 
         User userUpdate = userRepository.findById(id).orElse(null);
@@ -65,7 +65,7 @@ public class UserService {
 
         return null;
     }
-
+    @Transactional(readOnly = true)
     public void deleteUser(Long id){
         if(!userRepository.existsById(id)){
             throw new RuntimeException("User not found");

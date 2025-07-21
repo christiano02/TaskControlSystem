@@ -24,6 +24,7 @@ public class TaskController {
     }
 
     @GetMapping("/list")
+    @ResponseBody
     public List<TaskDTO> taskDTOList(){
         return taskService.listTask();
     }

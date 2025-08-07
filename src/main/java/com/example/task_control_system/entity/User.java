@@ -2,17 +2,12 @@ package com.example.task_control_system.entity;
 
 import com.example.task_control_system.role.EnumRole;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table (name="tb_user")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,26 +19,22 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
 
-    @Column(name = "userName")
-    private String userName;
-
     @Column(name = "password")
     private String password;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private EnumRole profile;
+    private EnumRole role;
 
     public User() {
     }
 
-    public User(Long id, String email, String name,String userName, String password, EnumRole profile) {
+    public User(Long id, String email, String name, String password, EnumRole profile) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.userName = userName;
         this.password = password;
-        this.profile = profile;
+        this.role = profile;
     }
 
     @Override
@@ -79,66 +70,20 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public EnumRole getProfile() {
-        return profile;
+    public EnumRole getRole() {
+        return role;
     }
 
-    public void setProfile(EnumRole profile) {
-        this.profile = profile;
+    public void setRole(EnumRole role) {
+        this.role = role;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.profile == EnumRole.ADMIN){
-            return List.of(
-                    new SimpleGrantedAuthority("ROLE_ADMIN"),
-                    new SimpleGrantedAuthority("ROLE_USER")
-            );
-        }
-        return List.of(
-                new SimpleGrantedAuthority("ROLE_USER")
-        );
-    }
-    @Override
     public String getPassword() {
         return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.userName;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
     }
 
     @Override

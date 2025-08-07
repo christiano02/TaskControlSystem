@@ -10,9 +10,8 @@ public class UserDTO {
     private Long id;
     private String name;
     private String email;
-    private String userName;
     private String password;
-    private EnumRole profile;
+    private EnumRole role;
 
     //NOARGCONTRUCTOR
     public UserDTO(){
@@ -49,14 +48,6 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -65,12 +56,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public EnumRole getProfile() {
-        return profile;
+    public EnumRole getRole() {
+        return role;
     }
 
-    public void setProfile(EnumRole profile) {
-        this.profile = profile;
+    public void setRole(EnumRole role) {
+        this.role = role;
     }
     //toString
 

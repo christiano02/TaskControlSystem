@@ -4,10 +4,10 @@ import com.example.task_control_system.dto.UserDTO;
 import com.example.task_control_system.entity.User;
 import com.example.task_control_system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Classe responsável por conter as regras de negócio relacionadas ao gerenciamento de usuários.
@@ -19,7 +19,6 @@ public class UserService {
     private UserRepository userRepository;
 
     // Encoder de senhas,  usado para criptografar senhas antes de salvar no banco.
-    private PasswordEncoder passwordEncoder;
 
     /**
      * Busca um usuário pelo ID e retorna um DTO correspondente.
@@ -42,7 +41,7 @@ public class UserService {
     @Transactional // @Transactional (sem readOnly) para permitir escrita.
     public User createUser(UserDTO dto) {
         // Verifica se já existe um usuário com o mesmo username
-        User userExisting = userRepository.findByUserName(dto.getUserName());
+        Optional<User> userExisting = userRepository.findById(dto.getId());
         if (Objects.nonNull(userExisting)) {
             throw new RuntimeException("Existing User");
         }
@@ -52,14 +51,13 @@ public class UserService {
         userCreated.setId(dto.getId());
         userCreated.setName(dto.getName());
         userCreated.setEmail(dto.getEmail());
-        userCreated.setUserName(dto.getUserName());
-        userCreated.setPassword(passwordEncoder.encode(dto.getPassword())); // Ideal: codificar a senha usando passwordEncoder
-        userCreated.setProfile(dto.getProfile());
+        userCreated.setPassword(dto.getPassword()); // Ideal: codificar a senha usando passwordEncoder
+        userCreated.setRole(dto.getRole());
 
         //salva um novo user no banco de dados
         userRepository.save(userCreated);
         // Retorna uma nova instância de User (não salva no banco!)
-        return new User(userCreated.getId(), userCreated.getName(), userCreated.getEmail(), userCreated.getUserName(), userCreated.getPassword(), userCreated.getProfile());
+        return new User(userCreated.getId(), userCreated.getName(), userCreated.getEmail(),  userCreated.getPassword(), userCreated.getRole());
     }
 
     /**
@@ -77,9 +75,8 @@ public class UserService {
             userUpdate.setId(dto.getId());
             userUpdate.setName(dto.getName());
             userUpdate.setEmail(dto.getEmail());
-            userUpdate.setUserName(dto.getUserName());
-            userUpdate.setPassword(passwordEncoder.encode(dto.getPassword()));
-            userUpdate.setProfile(dto.getProfile());
+            userUpdate.setPassword(dto.getPassword());
+            userUpdate.setRole(dto.getRole());
 
             return userRepository.save(userUpdate);
         }

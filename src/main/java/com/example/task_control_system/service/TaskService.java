@@ -29,14 +29,13 @@ public class TaskService {
      * Cria uma nova tarefa associada a um usuário existente.
      * Define status inicial como PENDING e registra a data de criação.
      *
-     * @param userId ID do usuário ao qual a tarefa será atribuída.
      * @param dto Objeto contendo os dados da tarefa.
      * @return Objeto Task salvo no banco de dados.
      */
     @Transactional //@Transactional para permitir escrita
-    public Task createTask(Long userId, TaskDTO dto) {
+    public Task createTask(Long id, TaskDTO dto) {
         // Busca o usuário associado à tarefa
-        User existingUser = userRepository.findById(userId)
+        User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         // Cria e popula os campos da nova tarefa
@@ -56,7 +55,6 @@ public class TaskService {
      *
      * @return Lista de TaskDTOs representando todas as tarefas.
      */
-    @Transactional(readOnly = true)
     public List<TaskDTO> listTask() {
         List<Task> result = taskRepository.findAll();
         return result.stream().map(TaskDTO::new).toList();

@@ -1,14 +1,7 @@
 package com.example.task_control_system.dto;
 
 import com.example.task_control_system.entity.Task;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@AllArgsConstructor
-@NoArgsConstructor
 public class TaskDTO {
 
     private Long id;

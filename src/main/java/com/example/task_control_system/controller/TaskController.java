@@ -21,15 +21,10 @@ public class TaskController {
     }
 
     @PostMapping("/create/{userId}")
-    public ResponseEntity<Task> createTask(@PathVariable Long userId, @RequestBody TaskDTO dto) {
-        Task task = taskService.createTask(userId, dto);
+    public ResponseEntity<TaskDTO> createTask(@PathVariable Long userId, @RequestBody TaskDTO dto) {
+        TaskDTO task = taskService.createTask(userId, dto);
         return ResponseEntity.ok(task);
     }
-    @GetMapping("/teste")
-    public String test(){
-        return "teste on";
-    }
-
 
     @GetMapping("/list")
     public List<TaskDTO> taskDTOList(){

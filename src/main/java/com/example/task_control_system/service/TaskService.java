@@ -7,8 +7,10 @@ import com.example.task_control_system.repository.TaskRepository;
 import com.example.task_control_system.repository.UserRepository;
 import com.example.task_control_system.role.EnumStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,10 +35,10 @@ public class TaskService {
      * @return Objeto Task salvo no banco de dados.
      */
     @Transactional //@Transactional para permitir escrita
-    public Task createTask(Long id, TaskDTO dto) {
+    public TaskDTO createTask(Long userId, TaskDTO dto) {
         // Busca o usuário associado à tarefa
-        User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         // Cria e popula os campos da nova tarefa
         Task task = new Task();
@@ -47,7 +49,8 @@ public class TaskService {
         task.setCreationDate(LocalDateTime.now());
 
         // Salva e retorna a tarefa
-        return taskRepository.save(task);
+        Task savedTask = taskRepository.save(task);
+        return new TaskDTO(savedTask);
     }
 
     /**
@@ -65,13 +68,20 @@ public class TaskService {
      *
      * @param id Identificador da tarefa a ser removida.
      */
-    @Transactional //@Transactional para permitir exclusão
+    @Transactional//@Transactional para permitir exclusão
     public void deleteTask(Long id) {
         if (!taskRepository.existsById(id)) {
             throw new RuntimeException("Task not found");
         } else {
             taskRepository.deleteById(id);
         }
+    }
+    @Transactional
+    public List<TaskDTO> listTaskByUserId(Long userId){
+        return taskRepository.findByUserId(userId)
+                .stream()
+                .map(TaskDTO::new)
+                .toList();
     }
 }
 

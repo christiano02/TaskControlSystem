@@ -2,6 +2,7 @@ package com.example.task_control_system.controller;
 
 import com.example.task_control_system.dto.TaskDTO;
 import com.example.task_control_system.entity.Task;
+import com.example.task_control_system.repository.TaskRepository;
 import com.example.task_control_system.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,13 @@ import java.util.List;
 @RequestMapping("/task")
 public class TaskController {
 
-    private TaskService taskService;
+    private final TaskService taskService;
+    private final TaskRepository taskRepository;
 
-    public TaskController(TaskService taskService){
+    public TaskController(TaskService taskService,
+                          TaskRepository taskRepository){
         this.taskService = taskService;
+        this.taskRepository = taskRepository;
     }
 
     @PostMapping("/create/{userId}")
@@ -25,6 +29,12 @@ public class TaskController {
         TaskDTO task = taskService.createTask(userId, dto);
         return ResponseEntity.ok(task);
     }
+
+    @GetMapping
+    public List<TaskDTO> taskDTOListById(Long userId){
+        return taskService.listTaskByUserId(userId);
+    }
+
 
     @GetMapping("/list")
     public List<TaskDTO> taskDTOList(){

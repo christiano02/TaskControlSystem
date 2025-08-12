@@ -8,6 +8,9 @@ public class TaskDTO {
     private String title;
     private String description;
 
+    public TaskDTO(){
+    }
+
     public TaskDTO(Task entity){
         this.id = entity.getId();
         this.title = entity.getTitle();

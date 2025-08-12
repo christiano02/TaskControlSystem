@@ -30,8 +30,8 @@ public class TaskController {
         return ResponseEntity.ok(task);
     }
 
-    @GetMapping
-    public List<TaskDTO> taskDTOListById(Long userId){
+    @GetMapping("/list/{userId}")
+    public List<TaskDTO> taskDTOListById(@PathVariable Long userId){
         return taskService.listTaskByUserId(userId);
     }
 

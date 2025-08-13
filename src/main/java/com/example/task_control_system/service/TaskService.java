@@ -8,17 +8,12 @@ import com.example.task_control_system.repository.UserRepository;
 import com.example.task_control_system.role.EnumStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Classe de serviço responsável por conter a lógica de negócios relacionada às tarefas (Tasks).
@@ -72,6 +67,7 @@ public class TaskService {
      * Remove uma tarefa com base no seu ID. Lança exceção caso a tarefa não exista.
      *
      * @param id Identificador da tarefa a ser removida.
+     * @return
      */
     @Transactional//@Transactional para permitir exclusão
     public void deleteTask(Long id) {

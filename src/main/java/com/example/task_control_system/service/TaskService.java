@@ -8,12 +8,17 @@ import com.example.task_control_system.repository.UserRepository;
 import com.example.task_control_system.role.EnumStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Classe de serviço responsável por conter a lógica de negócios relacionada às tarefas (Tasks).
@@ -83,5 +88,18 @@ public class TaskService {
                 .map(TaskDTO::new)
                 .toList();
     }
-}
+    @Transactional
+    public TaskDTO updateTaskDTO(Long id, TaskDTO updateTask) {
 
+             Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException ("Task não encontrada"));
+                //atualiza a task
+                task.setTitle(updateTask.getTitle());
+                task.setDescription(updateTask.getDescription());
+
+                //salva no banco
+                Task newTask = taskRepository.save(task);
+
+                //retorna uma nova taskDTO
+                return new TaskDTO(newTask);
+    }
+}

@@ -16,12 +16,9 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
-    private final TaskRepository taskRepository;
 
-    public TaskController(TaskService taskService,
-                          TaskRepository taskRepository){
+    public TaskController(TaskService taskService){
         this.taskService = taskService;
-        this.taskRepository = taskRepository;
     }
 
     @PostMapping("/create/{userId}")
@@ -40,4 +37,10 @@ public class TaskController {
     public List<TaskDTO> taskDTOList(){
         return taskService.listTask();
     }
+
+    @PutMapping("/update/{id}")
+    public TaskDTO updateTask(@PathVariable Long id, @RequestBody TaskDTO updateTask){
+        return taskService.updateTaskDTO(id, updateTask);
+    }
+
 }

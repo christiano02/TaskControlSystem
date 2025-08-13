@@ -1,5 +1,6 @@
 package com.example.task_control_system.repository;
 
+import com.example.task_control_system.dto.TaskDTO;
 import com.example.task_control_system.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 
